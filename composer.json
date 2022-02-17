@@ -1,0 +1,28 @@
+{
+    "name": "ampeco/omnipay-asseco",
+    "description": "Omnipay plugin for https://entegrasyon.paratika.com.tr/paratika/api/v2/doc?language=en",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Ampeco\\OmnipayAsseco\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Alexander Alexiev",
+            "email": "alexander.alexiev@ampeco.com"
+        },
+        {
+            "name": "Tihomir Tonov",
+            "email": "tihomir.tonov@ampeco.com"
+        },
+        {
+            "name": "Kaloyan Katzarov",
+            "email": "kaloyan.katzarov@ampeco.com"
+        }
+    ],
+    "require": {
+        "omnipay/common": "^3"
+    }
+}
