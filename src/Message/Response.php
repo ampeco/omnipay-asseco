@@ -45,6 +45,8 @@ class Response extends AbstractResponse implements ResponseInterface, RedirectRe
     {
         if (array_key_exists('pgTranId', $this->data)) {
             return $this->data['pgTranId'];
+        } elseif (array_key_exists('sessionToken', $this->data)) {
+            return $this->data['sessionToken'];
         } else {
             return null;
         }
