@@ -6,6 +6,11 @@ class DeleteCardRequest extends AbstractRequest
 {
     public function getData()
     {
-        return [];
+        $this->validate('token');
+
+        return [
+            'ACTION' => 'EWALLETDELETECARD',
+            'CARDTOKEN' => $this->getToken(),
+        ];
     }
 }

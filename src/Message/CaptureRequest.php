@@ -6,10 +6,12 @@ class CaptureRequest extends AbstractRequest
 {
     public function getData()
     {
-        $this->validate('amount');
+        $this->validate('amount', 'transactionReference');
 
         return [
-            "amount" => $this->getAmount(),
+            'ACTION' => "POSTAUTH",
+            'AMOUNT' => $this->getAmount(),
+            'PGTRANID' => $this->getTransactionReference(),
         ];
     }
 }
