@@ -4,27 +4,27 @@ namespace Ampeco\OmnipayAsseco\Message;
 
 class PurchaseRequest extends AbstractRequest
 {
-    public function setCapture($value)
+
+    public function setAction($value)
     {
-        $this->setParameter('capture', (bool) $value);
+        $this->setParameter('action', $value);
     }
 
-    public function getCapture()
+    public function getAction()
     {
-        return $this->getParameter('capture');
+        return $this->getParameter('action');
     }
 
     public function getData()
     {
-        $this->validate('amount', 'currency', 'token', 'description', 'capture');
-
+        $this->validate('amount', 'currency', 'token', 'customerId', 'transactionId', 'action');
         return [
-            'initiation_type' => 'installment',
-            'amount' => $this->getAmount(),
-            'currency' => $this->getCurrency(),
-            'payment_method' => $this->getToken(),
-            'description' => $this->getDescription(),
-            'capture' => $this->getCapture(),
+            'ACTION' => $this->getAction(),
+            'MERCHANTPAYMENTID' => $this->getTransactionId(),
+            'AMOUNT' => $this->getAmount(),
+            'CUSTOMER' => $this->getCustomerId(),
+            'CURRENCY' => $this->getCurrency(),
+            'CARDTOKEN' => $this->getToken(),
         ];
     }
 }

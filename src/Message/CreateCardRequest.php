@@ -18,7 +18,8 @@ class CreateCardRequest extends AbstractRequest
             'CURRENCY' => $this->getCurrency(),
             'RETURNURL' => $this->getReturnUrl(),
             'EXTRA' => urlencode(json_encode([
-                'saveCard' => 'YES'
+                "ForceSave" => "YES"
+                //"saveCard" => "YES"
             ])),
         ];
     }
