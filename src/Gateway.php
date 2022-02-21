@@ -41,7 +41,9 @@ class Gateway extends AbstractGateway
 
     public function authorize(array $options = []): AbstractRequest
     {
-        return $this->createRequest(PurchaseRequest::class, array_merge($options, ['action' => 'PREAUTH']));
+        return $this->createRequest(PurchaseRequest::class, array_merge($options, [
+            'action' => PurchaseRequest::PREAUTH,
+        ]));
     }
 
     public function capture(array $options = []): AbstractRequest
@@ -51,12 +53,14 @@ class Gateway extends AbstractGateway
 
     public function void(array $options = []): AbstractRequest
     {
-         return $this->createRequest(VoidRequest::class, $options);
+        return $this->createRequest(VoidRequest::class, $options);
     }
 
     public function purchase(array $options = []): AbstractRequest
     {
-        return $this->createRequest(PurchaseRequest::class, array_merge($options, ['action' => 'SALE']));
+        return $this->createRequest(PurchaseRequest::class, array_merge($options, [
+            'action' => PurchaseRequest::SALE,
+        ]));
     }
 
     public function createCard(array $options = []): AbstractRequest
@@ -69,8 +73,8 @@ class Gateway extends AbstractGateway
         return $this->createRequest(DeleteCardRequest::class, $options);
     }
 
-     public function listPaymentMethods(array $options = []): AbstractRequest
-     {
-         return $this->createRequest(ListPaymentMethodsRequest::class, $options);
-     }
+    public function listPaymentMethods(array $options = []): AbstractRequest
+    {
+        return $this->createRequest(ListPaymentMethodsRequest::class, $options);
+    }
 }

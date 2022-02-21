@@ -4,6 +4,8 @@ namespace Ampeco\OmnipayAsseco\Message;
 
 class PurchaseRequest extends AbstractRequest
 {
+    const SALE = 'SALE';
+    const PREAUTH = 'PREAUTH';
 
     public function setAction($value)
     {
@@ -18,6 +20,7 @@ class PurchaseRequest extends AbstractRequest
     public function getData()
     {
         $this->validate('amount', 'currency', 'token', 'customerId', 'transactionId', 'action');
+
         return [
             'ACTION' => $this->getAction(),
             'MERCHANTPAYMENTID' => $this->getTransactionId(),
