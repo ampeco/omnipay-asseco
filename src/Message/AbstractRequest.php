@@ -8,11 +8,16 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 {
     use CommonParameters;
 
-    const ENDPOINT_PRODUCTION = 'https://entegrasyon.asseco-see.com.tr/msu/api/v2';
+    const TEST_ENDPOINT_PRODUCTION = 'https://entegrasyon.asseco-see.com.tr/msu/api/v2';
+    const PROD_ENDPOINT_PRODUCTION = 'https://merchantsafeunipay.com/msu/api/v2/';
 
     public function getBaseUrl()
     {
-        return self::ENDPOINT_PRODUCTION;
+        if ($this->getTestMode()) {
+            return self::TEST_ENDPOINT_PRODUCTION;
+        } else {
+            return self::PROD_ENDPOINT_PRODUCTION;
+        }
     }
 
     public function getHeaders(): array
@@ -26,7 +31,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function sendData($data)
     {

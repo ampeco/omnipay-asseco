@@ -8,9 +8,9 @@ class CreateCardRequest extends AbstractRequest
     {
         $this->validate('returnUrl', 'customerId', 'transactionId');
 
-        return [
+        $params = [
             'ACTION' => 'SESSIONTOKEN',
-            'SESSIONTYPE' => 'WALLETSESSION',
+            'SESSIONTYPE' => 'PAYMENTSESSION',
             'LANGUAGE' => 'EN',
             'MERCHANTPAYMENTID' => $this->getTransactionId(),
             'CUSTOMER' => $this->getCustomerId(),
@@ -18,8 +18,15 @@ class CreateCardRequest extends AbstractRequest
             'CURRENCY' => $this->getCurrency(),
             'RETURNURL' => $this->getReturnUrl(),
             'EXTRA' => urlencode(json_encode([
-                "ForceSave" => "YES"
+                'ForceSave' => 'YES',
             ])),
         ];
+
+        if (!$this->getTestMode()) {
+            $params['DEALERTYPENAME'] = $this->getDealerTypeName3D();
+            $params['PAYMENTSYSTEM'] = $this->getPaymentSystem3D();
+        }
+
+        return $params;
     }
 }

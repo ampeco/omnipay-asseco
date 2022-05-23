@@ -21,7 +21,7 @@ class PurchaseRequest extends AbstractRequest
     {
         $this->validate('amount', 'currency', 'token', 'customerId', 'transactionId', 'action');
 
-        return [
+        $params = [
             'ACTION' => $this->getAction(),
             'MERCHANTPAYMENTID' => $this->getTransactionId(),
             'AMOUNT' => $this->getAmount(),
@@ -29,5 +29,12 @@ class PurchaseRequest extends AbstractRequest
             'CURRENCY' => $this->getCurrency(),
             'CARDTOKEN' => $this->getToken(),
         ];
+
+        if (!$this->getTestMode()) {
+            $params['DEALERTYPENAME'] = $this->getDealerTypeName();
+            $params['PAYMENTSYSTEM'] = $this->getPaymentSystem();
+        }
+
+        return $params;
     }
 }

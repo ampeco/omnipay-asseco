@@ -9,7 +9,8 @@ use Omnipay\Common\Message\ResponseInterface;
 
 class Response extends AbstractResponse implements ResponseInterface, RedirectResponseInterface
 {
-    const REDIRECT_URL = 'https://entegrasyon.asseco-see.com.tr/chipcard/pay3d/';
+    const TEST_REDIRECT_URL = 'https://entegrasyon.asseco-see.com.tr/chipcard/pay3d/';
+    const PROD_REDIRECT_URL = 'https://merchantsafeunipay.com/chipcard/pay3d/';
     const SUCCESS_CODE = '00';
 
     protected int $statusCode;
@@ -38,7 +39,11 @@ class Response extends AbstractResponse implements ResponseInterface, RedirectRe
 
     public function getRedirectUrl()
     {
-        return self::REDIRECT_URL . $this->data['sessionToken'];
+        if ($this->getRequest()->getTestMode()) {
+            return self::TEST_REDIRECT_URL . $this->data['sessionToken'];
+        } else {
+            return self::PROD_REDIRECT_URL . $this->data['sessionToken'];
+        }
     }
 
     public function getTransactionReference()

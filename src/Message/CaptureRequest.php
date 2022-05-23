@@ -6,12 +6,20 @@ class CaptureRequest extends AbstractRequest
 {
     public function getData()
     {
-        $this->validate('amount', 'transactionReference');
+        $this->validate('amount', 'transactionId');
 
-        return [
-            'ACTION' => "POSTAUTH",
+        $params = [
+            'ACTION' => 'POSTAUTH',
             'AMOUNT' => $this->getAmount(),
             'PGTRANID' => $this->getTransactionReference(),
+            'MERCHANTPAYMENTID' => $this->getTransactionId(),
         ];
+
+        if (!$this->getTestMode()) {
+            $params['DEALERTYPENAME'] = $this->getDealerTypeName();
+            $params['PAYMENTSYSTEM'] = $this->getPaymentSystem();
+        }
+
+        return $params;
     }
 }
